@@ -13,7 +13,7 @@ This project demonstrates a professional DevOps workflow, transitioning a Node.j
 7. **Clean Architecture (.gitignore)**: Implemented Git standards to exclude local dependencies and OS-specific files, keeping the repository professional and lightweight.
 8. **Runtime Evolution (CRI)**: Added automated scripts for standalone **containerd** installation, moving away from Docker Shim as per modern Kubernetes requirements.
 
-## 🏗️ Architecture Diagram
+##  Architecture Diagram
 ```text
                       [ Public Internet ]
                               |
