@@ -17,10 +17,10 @@ static_resources:
               routes:
               - match: { prefix: "/" }
                 route: { cluster: web_app_cluster }
-        http_filters:
-        - name: envoy.filters.http.router
-          typed_config:
-            "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
+          http_filters:
+          - name: envoy.filters.http.router
+            typed_config:
+              "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
   clusters:
   - name: web_app_cluster
     connect_timeout: 0.25s
@@ -35,4 +35,3 @@ static_resources:
               socket_address:
                 address: web-app
                 port_value: 3000
-          
