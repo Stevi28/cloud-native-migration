@@ -1,0 +1,11 @@
+# expose the app deployment internally
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-app
+spec:
+  selector:
+    app: web
+  ports:
+    - port: 3000
+      targetPort: 3000
