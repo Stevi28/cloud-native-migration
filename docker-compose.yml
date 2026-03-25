@@ -12,5 +12,5 @@ services:
   mongodb:
     image: "mongo:latest"
 
-  redis:
+  redis-cache:
     image: "redis:alpine"
