@@ -5,7 +5,7 @@ This project demonstrates a professional DevOps workflow, transitioning a Node.j
 ##  Project Milestones
 
 1. **Modern Edge Proxy (Envoy)**: Replaced traditional NGINX with **Envoy Proxy (v1.28)** to align with the new **Kubernetes Gateway API** standards (post-NGINX Ingress retirement).
-2. **Containerization (Docker)**: Solved the "Matrix from Hell" by bundling a Node.js app with its dependencies (Express) using a shared kernel architecture.
+2. **Containerization (Docker)**: Solved the "Matrix from Hell" by bundling a Node.js app with its dependencies (Express, MongoDB client, Redis client) using a shared kernel architecture.
 3. **Orchestration (Docker Compose)**: Managed a multi-container production-ready stack including Node.js, MongoDB, and Redis, isolated behind the Envoy Gateway.
 4. **Infrastructure as Code (Scripts)**: Automated the Docker installation process on Ubuntu VMs.
 5. **Kubernetes Architecture**: Implemented a High Availability (HA) deployment with 3 replicas and self-healing capabilities.
@@ -14,7 +14,6 @@ This project demonstrates a professional DevOps workflow, transitioning a Node.j
 8. **Runtime Evolution (CRI)**: Added automated scripts for standalone **containerd** installation, moving away from Docker Shim as per modern Kubernetes requirements.
 
 ## 🏗️ Architecture Diagram
-
 ```text
                       [ Public Internet ]
                               |
@@ -58,6 +57,7 @@ This project demonstrates a professional DevOps workflow, transitioning a Node.j
 - **etcd Consistency & Scheduler Logic**: How K8s maintains state and decides where to place Pods.
 - **OCI Image Specifications**: Building standard-compliant images for any container runtime.
 - **Self-healing via Replicas**: Ensuring high availability through automated pod recovery.
+- **DB Connectivity Checks**: The root endpoint (`/`) actively pings MongoDB and Redis on each request, reporting live connection status for both databases.
 
 ## Quick Start & Execution
 
