@@ -1,10 +1,17 @@
 version: '3.8'
 
 services:
+  envoy-proxy:
+    image: envoyproxy/envoy:v1.28-latest
+    ports:
+      - "80:80"
+      - "9901:9901" #admin interface of envoy - debugging
+    volumes:
+      - ./envoy/envoy.yaml:/etc/envoy/envoy.yaml:ro
+    depends_on:
+      - web-app
   web-app:
     build: .
-    ports:
-      - "3000:3000"
     depends_on:
       - mongodb
       - redis-cache
