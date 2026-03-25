@@ -13,7 +13,7 @@ RUN npm install
 # copy the rest of the app code
 COPY app/ .
 
-# open port 3000 to access the site
+# internal port the app listens on (proxied by Envoy, not exposed to host)
 EXPOSE 3000
 
 # run the containerized process
