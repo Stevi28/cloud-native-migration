@@ -7,7 +7,7 @@ This project demonstrates a professional DevOps workflow, transitioning a Node.j
 1. **Modern Edge Proxy (Envoy)**: Replaced traditional NGINX with **Envoy Proxy (v1.28)** to align with the new **Kubernetes Gateway API** standards (post-NGINX Ingress retirement).
 2. **Containerization (Docker)**: Solved the "Matrix from Hell" by bundling a Node.js app with its dependencies (Express, MongoDB client, Redis client) using a shared kernel architecture.
 3. **Orchestration (Docker Compose)**: Managed a multi-container production-ready stack including Node.js, MongoDB, and Redis, isolated behind the Envoy Gateway.
-4. **Infrastructure as Code (Scripts)**: Automated the Docker installation process on Ubuntu VMs.
+4. **Infrastructure as Code (Scripts)**: Automated the Docker and containerd installation process on Ubuntu VMs, with architecture detection for arm64/amd64.
 5. **Kubernetes Architecture**: Implemented a High Availability (HA) deployment with 3 replicas, self-healing capabilities, and zero-downtime rolling updates.
 6. **Envoy on Kubernetes**: Deployed Envoy Proxy as a K8s Deployment with a ConfigMap-mounted configuration and NodePort Service — mirroring the Docker Compose setup inside the cluster.
 7. **Runtime Standards (CRI & OCI)**: Documented the transition from Docker Shim to **containerd** using the Container Runtime Interface.
@@ -62,6 +62,7 @@ This project demonstrates a professional DevOps workflow, transitioning a Node.j
 - **Self-healing via Replicas**: Ensuring high availability through automated pod recovery.
 - **Zero-Downtime Rolling Updates**: Observed live as old pods terminated one-by-one while new ones came up.
 - **DB Connectivity Checks**: The root endpoint (`/`) actively pings MongoDB and Redis on each request, reporting live connection status for both databases.
+- **Cross-Architecture Scripting**: Automated scripts detect the host architecture (`arm64`/`amd64`) at runtime and download the correct binaries.
 
 ## Quick Start & Execution
 
@@ -124,7 +125,21 @@ docker build -t node-app:latest .
 kubectl rollout restart deployment/cloud-native-app
 ```
 
-### 3. Cleanup
+### 3. Run the Automation Scripts (Ubuntu VMs)
+To set up a fresh Ubuntu server as a Docker or containerd host:
+```bash
+# Install Docker
+chmod +x scripts/install-docker.sh
+./scripts/install-docker.sh
+
+# Install standalone containerd (CRI-compliant, arch-aware)
+chmod +x scripts/setup-containerd.sh
+./scripts/setup-containerd.sh
+```
+
+> Both scripts are tested on Ubuntu 24.04 LTS (arm64 & amd64).
+
+### 4. Cleanup
 To stop everything and free up system resources:
 ```bash
 # Docker Compose
